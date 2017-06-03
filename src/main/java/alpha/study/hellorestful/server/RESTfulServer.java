@@ -1,4 +1,4 @@
-package alpha.study.hellorestful;
+package alpha.study.hellorestful.server;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +14,7 @@ import java.net.URI;
  * Main class.
  *
  */
-public class Main {
+public class RESTfulServer {
 	private static final Logger LOGGER = LoggerFactory.getLogger(Math.class);
     // Base URI the Grizzly HTTP server will listen on
     public static final String BASE_URI = "http://localhost:8080/myapp/";
@@ -26,7 +26,6 @@ public class Main {
     public static HttpServer startServer() {
         // create a resource config that scans for JAX-RS resources and providers
         // in $package package
-    	LOGGER.info("alpha.study.hellorestful");
         final ResourceConfig rc = new ResourceConfig().packages("alpha.study.hellorestful");
 
         // create and start a new instance of grizzly http server

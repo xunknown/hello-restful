@@ -1,4 +1,4 @@
-package alpha.study.hellorestful;
+package alpha.study.hellorestful.resource;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

@@ -1,4 +1,4 @@
-package alpha.study.hellorestful;
+package alpha.study.hellorestful.test;
 
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
@@ -10,6 +10,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import alpha.study.hellorestful.server.RESTfulServer;
+
 import static org.junit.Assert.assertEquals;
 
 public class MyResourceTest {
@@ -20,7 +22,7 @@ public class MyResourceTest {
     @Before
     public void setUp() throws Exception {
         // start the server
-        server = Main.startServer();
+        server = RESTfulServer.startServer();
         // create the client
         Client c = ClientBuilder.newClient();
 
@@ -30,7 +32,7 @@ public class MyResourceTest {
         // --
         // c.configuration().enable(new org.glassfish.jersey.media.json.JsonJaxbFeature());
 
-        target = c.target(Main.BASE_URI);
+        target = c.target(RESTfulServer.BASE_URI);
     }
 
     @After
