@@ -1,5 +1,7 @@
 package alpha.study.hellorestful.resource;
 
+import java.text.ParseException;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -10,13 +12,17 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.ResponseBuilder;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Root resource (exposed at "/" path)
  */
 @Path("/")
 public class Resources {
+	private static final Logger LOGGER = LoggerFactory.getLogger(Resources.class);
+
 	/**
 	 * Method handling HTTP GET requests. The returned object will be sent to
 	 * the client as "text/plain" media type.
@@ -25,41 +31,61 @@ public class Resources {
 	 */
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
-	public String getRootResource() {
-		return "root resource.";
+	public String getResource() {
+		return "GET root resource.\n";
 	}
 
-	@Path("/person/")
+	@Path("/resource/")
 	@POST
-	@Consumes("application/json")
-	public Response createPerson(String person) {
-		return Response.status(200).entity("post").build();
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response postResource(String data) {
+		LOGGER.trace("Received: {}", data);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("POST resource: " + data + "\n").build();
 	}
 
-	@Path("/person/")
+	@Path("/resource/")
 	@PUT
-	@Consumes("application/json")
-	public Response updatePerson(String person) {
-		return null;
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response putResource(String data) {
+		LOGGER.trace("Received: {}", data);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("PUT resource: " + data + "\n").build();
 	}
 
-	@Path("/person/{id:\\d+}/")
+	@Path("/resource/{id:\\d+}/")
 	@DELETE
-	public Response deletePerson(@PathParam("id") int id) {
-		return null;
+	public Response deleteResource(@PathParam("id") int id) {
+		LOGGER.trace("Received: {}", id);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("DELETE resource id: " + id + "\n").build();
 	}
 
-	@Path("/person/{id:\\d+}/")
+	@Path("/resource/{id:\\d+}/")
 	@GET
-	@Produces("application/json")
-	public Response readPerson(@PathParam("id") int id) {
-		return Response.status(200).entity("get " + id).build();
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getResource(@PathParam("id") int id) {
+		LOGGER.trace("Received: {}", id);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("GET resource id: " + id + "\n").build();
 	}
 
-	@Path("/person/{name}/")
+	@Path("/resource/{begin:\\d+}-{end:\\d+}/")
+	@GET 
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getResource(@PathParam("begin") int begin, @PathParam("end") int end) throws ParseException {
+		LOGGER.trace("Received: {} - {}", begin, end);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("GET resource id: " + begin + "-" + end + "\n").build();
+	}
+
+	@Path("/resource/{name}/")
 	@GET
-	@Produces("application/json")
-	public Response readPersonByName(@PathParam("name") String name) {
-		return null;
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getResource(@PathParam("name") String name) {
+		LOGGER.trace("Received: {}", name);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("GET resource name: " + name + "\n").build();
 	}
 }

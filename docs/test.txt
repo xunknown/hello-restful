@@ -1,0 +1,9 @@
+curl examples:
+
+curl http://127.0.0.1:9981/ -i
+curl http://127.0.0.1:9981/resource/100 -i -X DELETE
+curl http://127.0.0.1:9981/resource/100 -i -X GET
+curl http://127.0.0.1:9981/resource/name -i -X GET
+curl http://127.0.0.1:9981/resource/1-100 -i
+curl http://127.0.0.1:9981/resource/ -i -H "Content-type: application/json" -X PUT -d '{}'
+curl http://127.0.0.1:9981/resource/ -i -H "Content-type: application/json" -X POST -d '{}'

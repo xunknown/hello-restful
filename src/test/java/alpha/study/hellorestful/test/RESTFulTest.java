@@ -10,8 +10,6 @@ import org.junit.Test;
 
 import alpha.study.hellorestful.server.RESTfulServer;
 
-import static org.junit.Assert.assertEquals;
-
 public class RESTFulTest {
     private WebTarget target;
 
@@ -36,13 +34,9 @@ public class RESTFulTest {
         RESTfulServer.stopServer();
     }
 
-    /**
-     * Test to see that the message "Got it!" is sent in the response.
-     */
     @Test
     public void testGetRootResource() {
         String responseMsg = target.path("/").request().get(String.class);
         System.out.println(responseMsg);
-        // assertEquals("Got it!\n", responseMsg);
     }
 }

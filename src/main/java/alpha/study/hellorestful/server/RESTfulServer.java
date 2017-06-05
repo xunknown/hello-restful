@@ -3,8 +3,6 @@ package alpha.study.hellorestful.server;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.glassfish.grizzly.CompletionHandler;
-import org.glassfish.grizzly.GrizzlyFuture;
 import org.glassfish.grizzly.http.server.HttpServer;
 import org.glassfish.jersey.grizzly2.httpserver.GrizzlyHttpServerFactory;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -51,8 +49,8 @@ public class RESTfulServer {
      */
     public static boolean startServer() {
     	if (httpServer != null) {
-	        LOGGER.info("Grizzly HTTP server for Jersey RESTful Web Services have started with WADL available at "
-	        		+ "{}application.wadl.", baseURI());
+	        LOGGER.info("Grizzly HTTP server for Jersey RESTful Web Services "
+	        		+ "have started with WADL available at {}application.wadl.", baseURI());
     		return true;
     	}
 
@@ -65,17 +63,17 @@ public class RESTfulServer {
 	        httpServer = GrizzlyHttpServerFactory.createHttpServer(URI.create(baseURI()), rc, true);
 	
 	        if (httpServer != null) {
-		        LOGGER.info("Grizzly HTTP server for Jersey RESTful Web Services started with WADL available at "
-		        		 + "{}application.wadl succeed.", baseURI());
+		        LOGGER.info("succeed! Grizzly HTTP server for Jersey RESTful Web Services "
+		        		+ "start with WADL available at {}application.wadl.", baseURI());
 		        return true;
 	        } else {
-	        	LOGGER.error("Grizzly HTTP server for Jersey RESTful Web Services started with WADL available at "
-	        			+ "{} fail.", baseURI());
+	        	LOGGER.error("fail! Grizzly HTTP server for Jersey RESTful Web Services "
+	        			+ "start with WADL available at {}.", baseURI());
 	        	return false;
 	        }
         } catch (ProcessingException e) {
-        	LOGGER.error("Grizzly HTTP server for Jersey RESTful Web Services started with WADL available at "
-        			+ "{} fail.\n{}", baseURI(), ExceptionUtils.getStackTrace(e));
+        	LOGGER.error("fail! Grizzly HTTP server for Jersey RESTful Web Services "
+        			+ "start with WADL available at {}.\n{}", baseURI(), ExceptionUtils.getStackTrace(e));
 		}
         return false;
     }
