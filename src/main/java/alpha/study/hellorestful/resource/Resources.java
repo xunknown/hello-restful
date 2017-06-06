@@ -1,7 +1,5 @@
 package alpha.study.hellorestful.resource;
 
-import java.text.ParseException;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -15,6 +13,8 @@ import javax.ws.rs.core.Response;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import alpha.study.hellorestful.server.RESTfulServer;
 
 /**
  * Root resource (exposed at "/" path)
@@ -74,7 +74,7 @@ public class Resources {
 	@Path("/resource/{begin:\\d+}-{end:\\d+}/")
 	@GET 
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response getResource(@PathParam("begin") int begin, @PathParam("end") int end) throws ParseException {
+	public Response getResource(@PathParam("begin") int begin, @PathParam("end") int end) {
 		LOGGER.trace("Received: {} - {}", begin, end);
 		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
 		return Response.status(status).entity("GET resource id: " + begin + "-" + end + "\n").build();
@@ -87,5 +87,16 @@ public class Resources {
 		LOGGER.trace("Received: {}", name);
 		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
 		return Response.status(status).entity("GET resource name: " + name + "\n").build();
+	}
+	
+	@Path("/stop/")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_JSON)
+	public Response postStop(String data) {
+		LOGGER.trace("Received: {}", data);
+		RESTfulServer.stopServer();
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("POST stop: " + data + "\n").build();
 	}
 }
