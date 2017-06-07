@@ -88,7 +88,16 @@ public class Resources {
 		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
 		return Response.status(status).entity("GET resource name: " + name + "\n").build();
 	}
-	
+
+	@Path("/resource/{name}/{id:\\d+}/")
+	@GET
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getResource(@PathParam("name") String name, @PathParam("id") int id) {
+		LOGGER.trace("Received: {}, {}", name, id);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("GET resource name: " + name + ", " + id + "\n").build();
+	}
+
 	@Path("/stop/")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
