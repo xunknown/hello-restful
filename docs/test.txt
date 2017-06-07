@@ -9,3 +9,4 @@ curl http://127.0.0.1:9981/resource -i -H "Content-type: application/json" -X PU
 curl http://127.0.0.1:9981/resource -i -H "Content-type: application/json" -X POST -d '{}'
 curl http://127.0.0.1:9981/stop -i -H "Content-type: application/json" -X POST -d '{}'
 curl http://127.0.0.1:9981/stop -i -H "Content-type: application/json" -X POST -d '{}'
+curl http://127.0.0.1:9981/resource?name=xyz\&id=100 -i

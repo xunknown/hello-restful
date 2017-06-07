@@ -2,12 +2,14 @@ package alpha.study.hellorestful.resource;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.DefaultValue;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 
 import alpha.study.hellorestful.server.RESTfulServer;
 
+// see https://jersey.github.io/documentation/latest/jaxrs-resources.html for detail
 /**
  * Root resource (exposed at "/" path)
  */
@@ -77,7 +80,7 @@ public class Resources {
 	public Response getResource(@PathParam("begin") int begin, @PathParam("end") int end) {
 		LOGGER.trace("Received: {} - {}", begin, end);
 		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
-		return Response.status(status).entity("GET resource id: " + begin + "-" + end + "\n").build();
+		return Response.status(status).entity("GET resource: " + begin + "-" + end + "\n").build();
 	}
 
 	@Path("/resource/{name}/")
@@ -95,7 +98,16 @@ public class Resources {
 	public Response getResource(@PathParam("name") String name, @PathParam("id") int id) {
 		LOGGER.trace("Received: {}, {}", name, id);
 		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
-		return Response.status(status).entity("GET resource name: " + name + ", " + id + "\n").build();
+		return Response.status(status).entity("GET resource name: " + name + ", id: " + id + "\n").build();
+	}
+
+	@Path("/resource")
+	@GET
+	public Response getResource(@DefaultValue("1") @QueryParam("id") int id,
+			@DefaultValue("abc") @QueryParam("name") String name) {
+		LOGGER.trace("Received: id:{}, name:{}", id, name);
+		int status = ((int)(Math.random() * 10000) % 5 + 1) * 100 + (int)(Math.random() * 10000) % 10;
+		return Response.status(status).entity("GET resource : id: " + id + ", name: " + name + "\n").build();
 	}
 
 	@Path("/stop/")
