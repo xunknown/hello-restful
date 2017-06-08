@@ -25,7 +25,7 @@ public class RESTfulServer {
 	private static final String hostPropertyName = "HOST";
 	private static final String portPropertyName = "PORT";
 	private static final String pathPropertyName = "PATH";
-	private static final String defaultHost = "localhost";
+	private static final String defaultHost = "0.0.0.0";
 	private static final String defaultPort = "9981";
 	private static final String defaultPath = "/";
 	private static final String baseURI = baseURI();
@@ -42,6 +42,7 @@ public class RESTfulServer {
     	String host = System.getProperty(hostPropertyName, defaultHost);
     	String port = System.getProperty(portPropertyName, defaultPort);
     	String path = System.getProperty(pathPropertyName, defaultPath);
+    	if (!path.endsWith("/")) path += "/";
     	return "http://" + host + ":" + port + path;
 	}
 
