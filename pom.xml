@@ -91,7 +91,7 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<!-- 依赖包的路径 -->
+							<!-- 依赖包的打包路径 -->
 							<classpathPrefix>lib/</classpathPrefix>
 							<mainClass>alpha.study.hellorestful.server.RESTfulServer</mainClass>
 						</manifest>
