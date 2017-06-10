@@ -82,11 +82,13 @@
 				<targetPath>${packageDirectory}/conf</targetPath>
 			</resource>
 		</resources>
+
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
+
 				<configuration>
 					<archive>
 						<manifest>
@@ -100,6 +102,9 @@
 							<Class-Path>conf/</Class-Path>
 						</manifestEntries>
 					</archive>
+					<!-- <excludes> -->
+					<!-- <exclude>*.xml</exclude> -->
+					<!-- </excludes> -->
 					<outputDirectory>${packageDirectory}</outputDirectory>
 				</configuration>
 			</plugin>
@@ -123,6 +128,71 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.0.1</version>
+				<executions>
+					<execution>
+						<id>sources</id>
+						<phase>package</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+							<!-- <goal>test-jar-no-fork</goal> -->
+						</goals>
+						<configuration>
+							<excludeResources>true</excludeResources>
+							<outputDirectory>${packageDirectory}/src/</outputDirectory>
+							<!-- <finalName></finalName> -->
+							<!-- <attach>false</attach> -->
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>avadocs</id>
+						<phase>package</phase>
+						<goals>
+							<goal>javadoc-no-fork</goal>
+						</goals>
+						<configuration>
+							<reportOutputDirectory>${packageDirectory}/docs/</reportOutputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!--使用maven-resources-plugin将配置文件打包在项目的jar包外，jar包仍然会包含配置文件 -->
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-resources-plugin</artifactId> -->
+			<!-- <version>3.0.2</version> -->
+			<!-- <executions> -->
+			<!-- <execution> -->
+			<!-- <id>resources</id> -->
+			<!-- <phase>package</phase> -->
+			<!-- <goals> -->
+			<!-- <goal>copy-resources</goal> -->
+			<!-- </goals> -->
+			<!-- <configuration> -->
+			<!-- <resources> -->
+			<!-- <resource> -->
+			<!-- <directory>src/main/resources</directory> -->
+			<!-- <filtering>true</filtering> -->
+			<!-- </resource> -->
+			<!-- </resources> -->
+			<!-- <outputDirectory>${packageDirectory}/conf</outputDirectory> -->
+			<!-- </configuration> -->
+			<!-- </execution> -->
+			<!-- </executions> -->
+			<!-- </plugin> -->
 
 		</plugins>
 	</build>
