@@ -76,6 +76,7 @@
 	<build>
 		<resources>
 			<resource>
+			<!-- 排除配置文件，将配置文件打包在项目的jar包外 -->
 				<directory>src/main/resources</directory>
 				<excludes>
 					<exclude>*</exclude>
@@ -94,10 +95,12 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
+							<!-- 依赖包的路径 -->
 							<classpathPrefix>lib/</classpathPrefix>
 							<mainClass>alpha.study.hellorestful.server.RESTfulServer</mainClass>
 						</manifest>
 						<manifestEntries>
+						<!-- 配置文件在jar包外保存的路径，注意要以/结尾；配置文件通过maven-assembly-plugin复制到该路径 -->
 							<Class-Path>conf/</Class-Path>
 						</manifestEntries>
 					</archive>
